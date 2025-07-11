@@ -9,7 +9,19 @@
 </head>
 <body>
     {% if request.endpoint == 'login' or request.endpoint == 'register' %}
-        
+        <nav class="navbar">
+            <div class="container-fluid px-5 d-flex align-items-center">
+                <a href="{{ url_for('index') }}" class="navbar-brand fs-2 fw-bold">Rubick's Cube App</a>
+                <ul class="navbar-nav d-flex flex-row ms-auto align-items-center">
+                    <li class="nav-item me-3 fs-5">
+                        <a href="{{ url_for('login') }}" class="nav-link">Log In</a>
+                    </li>
+                    <li class="nav-item fs-5">
+                        <a href="{{ url_for('register') }}" class="nav-link">Register</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
     {% else %}
         
     {% endif %}

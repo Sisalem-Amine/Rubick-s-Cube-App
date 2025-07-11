@@ -1,0 +1,22 @@
+:root {
+  --primary: #4682A9;
+  --secondary: #91C8E4;
+  --accent: #F6B17A;
+  --bg-light: #F2F2F2;
+  --bg-dark: #2D2D2D;
+  --text-dark: #1E1E1E;
+  --text-light: #FFFFFF;
+  --divider: #B0BFCF;
+}
+
+.navbar{
+    background-color: var(--primary);
+}
+.navbar .navbar-brand, .navbar .nav-link{
+    color: var(--text-light);
+    transition: color 0.3s ease;
+}
+.navbar .navbar-brand:hover, .navbar .nav-link:hover{
+    color: var(--accent);
+    cursor: pointer;
+}
