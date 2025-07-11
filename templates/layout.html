@@ -8,6 +8,12 @@
     <title>{% block title %}Rubick's Cube App{% endblock %}</title>
 </head>
 <body>
+    {% if request.endpoint == 'login' or request.endpoint == 'register' %}
+        
+    {% else %}
+        
+    {% endif %}
+
     {% block body %}
 
     {% endblock %}
