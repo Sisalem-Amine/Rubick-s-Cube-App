@@ -5,16 +5,35 @@
 {% endblock %}
 
 {% block body %}
-    <form action="register" method="post">
-        <label for="username">Username</label>
-        <input type="text" name="username" id="username">
+    <div id="form" class="container d-flex flex-column justify-content-center align-items-center">
+        <h1 class="fs-1 fw-bold my-2 text-center">Register</h1>
 
-        <label for="password">Password</label>
-        <input type="password" name="password" id="password">
+        <form action="{{ url_for('register') }}" method="post" class="form p-4 d-flex flex-column justify-content-center align-items-center">
+            <div class="mb-3">
+                <div class="form-floating">
+                    <input name="username" type="text" class="form-control" id="username" placeholder="Username" required>
+                    <label for="username">Username</label>
+                </div>
+            </div>
 
-        <label for="password">Confirm Password</label>
-        <input type="password" name="password" id="password">
+            <div class="mb-3">
+                <div class="form-floating">
+                    <input name="password" type="password" class="form-control" id="password" placeholder="Password" required>
+                    <label for="password">Password</label>
+                </div>
+            </div>
 
-        <button type="submit">Log In</button>
-    </form>
+            <div class="mb-4">
+                <div class="form-floating">
+                    <input name="confirm_password" type="password" class="form-control" id="confirm-password" placeholder="Confirm Password" required>
+                    <label for="confirm-password">Confirm Password</label>
+                </div>
+            </div>
+
+            <button type="submit" class="btn">Register</button>
+        </form>
+        <small class="mt-1">
+            Have an account? <a href="{{ url_for('login') }}" class="link-light">Log In here</a>
+        </small>
+    </div>
 {% endblock %}

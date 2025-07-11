@@ -9,6 +9,12 @@
   --divider: #B0BFCF;
 }
 
+/*Background*/
+body{
+    background-color: var(--secondary);
+}
+
+/*Navbar*/
 .navbar{
     background-color: var(--primary);
 }
@@ -19,4 +25,40 @@
 .navbar .navbar-brand:hover, .navbar .nav-link:hover{
     color: var(--accent);
     cursor: pointer;
+}
+
+/*Form*/
+#form{
+    height: 75dvh;
+    color: var(--text-light);
+}
+#form form{
+    width: 100%;
+    max-width: 500px;
+}
+#form>form>div{
+    width: 100%;
+}
+#form h1 {
+  color: var(--primary);
+}
+#form .btn{
+    background-color: var(--primary);
+    border-color: var(--primary);
+    color: var(--text-light);
+    transition: all 0.3s ease;
+}
+#form .btn:hover{
+    background-color: var(--primary); 
+    color: var(--accent);
+    border-color: var(--accent);
+    filter: brightness(110%);
+    outline: none;
+}
+#form a.link-light{
+    transition: color 0.3s ease;
+}
+#form a.link-light:hover{
+    color: var(--accent) !important;
+    text-decoration-color: var(--accent) !important;
 }

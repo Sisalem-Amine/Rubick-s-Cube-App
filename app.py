@@ -38,13 +38,16 @@ def index():
 @app.route("/login", methods=["POST", "GET"])
 def login():
     if request.method == "POST":
-        return "LOGIN IN"
+        return "login in"
     else:
         return render_template("login.html")
 
-@app.route("/register")
+@app.route("/register", methods=["POST", "GET"])
 def register():
-    return render_template("register.html")
+    if request.method == "POST":
+        return "registering in"
+    else:
+        return render_template("register.html")
 
 if __name__ == "__main__":
     app.run(debug=True)
