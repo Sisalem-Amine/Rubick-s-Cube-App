@@ -28,7 +28,7 @@ body{
 }
 
 /*Form*/
-#form{
+#form:not("#form-feedback"){
     height: 75dvh;
     color: var(--text-light);
 }
@@ -61,4 +61,7 @@ body{
 #form a.link-light:hover{
     color: var(--accent) !important;
     text-decoration-color: var(--accent) !important;
+}
+#form-feedback{
+    display: none;
 }

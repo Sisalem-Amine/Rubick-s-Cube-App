@@ -8,7 +8,7 @@
     <div id="form" class="container d-flex flex-column justify-content-center align-items-center">
         <h1 class="fs-1 fw-bold my-2 text-center">Register</h1>
 
-        <form action="{{ url_for('register') }}" method="post" class="form p-4 d-flex flex-column justify-content-center align-items-center">
+        <form id="form-to-submit" action="{{ url_for('register') }}" method="post" class="form p-4 d-flex flex-column justify-content-center align-items-center" novalidate >
             <div class="mb-3">
                 <div class="form-floating">
                     <input name="username" type="text" class="form-control" id="username" placeholder="Username" required>
@@ -18,17 +18,19 @@
 
             <div class="mb-3">
                 <div class="form-floating">
-                    <input name="password" type="password" class="form-control" id="password" placeholder="Password" required>
+                    <input name="password" type="password" class="form-control" id="password" placeholder="Password" minlength="6" required>
                     <label for="password">Password</label>
                 </div>
             </div>
 
             <div class="mb-4">
                 <div class="form-floating">
-                    <input name="confirm_password" type="password" class="form-control" id="confirm-password" placeholder="Confirm Password" required>
+                    <input name="confirm_password" type="password" class="form-control" id="confirm-password" minlength="6" placeholder="Confirm Password" required>
                     <label for="confirm-password">Confirm Password</label>
                 </div>
             </div>
+
+            <div id="form-feedback" class="alert alert-danger text-center"></div>
 
             <button type="submit" class="btn">Register</button>
         </form>
