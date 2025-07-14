@@ -4,8 +4,10 @@ const form = document.getElementById('form-to-submit');
 
 form.addEventListener('submit', (e) => {
     let feedback = document.getElementById('form-feedback');
+    const serverFeedback = document.getElementById('server-feedback');
     
     e.preventDefault();
+    serverFeedback.classList.add('d-none');
     form.classList.remove('was-validated');
     feedback.style.display = 'none';
 

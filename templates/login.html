@@ -8,6 +8,14 @@
     <div id="form" class="container d-flex flex-column justify-content-center align-items-center" >
         <h1 class="fs-1 fw-bold my-2 text-center">Log In</h1>
 
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            <div class="alert alert-success text-center " id="server-flash">
+              {{ messages[0] }}
+            </div>
+          {% endif %}
+        {% endwith %}
+
         <form id="form-to-submit" action="{{ url_for('login') }}" method="post" class="form p-4 d-flex flex-column justify-content-center align-items-center" novalidate >
             <div class="mb-3">
                 <div class="form-floating">
@@ -24,6 +32,7 @@
             </div>
 
             <div id="form-feedback" class="alert alert-danger text-center"></div>
+            <div id="server-feedback" class="alert alert-danger text-center {% if not validity %}d-none{% endif %}">{{ validity }}</div>
 
             <button type="submit" class="btn">Log In</button>
         </form>

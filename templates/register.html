@@ -25,12 +25,13 @@
 
             <div class="mb-4">
                 <div class="form-floating">
-                    <input name="confirm_password" type="password" class="form-control" id="confirm-password" minlength="6" placeholder="Confirm Password" required>
+                    <input name="confirm-password" type="password" class="form-control" id="confirm-password" minlength="6" placeholder="Confirm Password" required>
                     <label for="confirm-password">Confirm Password</label>
                 </div>
             </div>
 
             <div id="form-feedback" class="alert alert-danger text-center"></div>
+            <div id="server-feedback" class="alert alert-danger text-center {% if not validity %}d-none{% endif %}">{{ validity }}</div>
 
             <button type="submit" class="btn">Register</button>
         </form>
