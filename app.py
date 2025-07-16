@@ -38,6 +38,21 @@ def load_user(user_id):
 def index():
     return render_template("index.html")
 
+@app.route("/timer")
+@login_required
+def timer():
+    return "TIMER"
+
+@app.route("/solver")
+@login_required
+def solver():
+    return "SOLVER"
+
+@app.route("/logout")
+@login_required
+def logout():
+    return "LOG OUT"
+
 @app.route("/login", methods=["POST", "GET"])
 def login():
     if request.method == "POST":
