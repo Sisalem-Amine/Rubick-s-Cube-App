@@ -48,10 +48,11 @@ def timer():
 def solver():
     return "SOLVER"
 
-@app.route("/logout")
+@app.route("/logout", methods=["POST", "GET"])
 @login_required
 def logout():
-    return "LOG OUT"
+    logout_user()
+    return redirect(url_for("login"))
 
 @app.route("/login", methods=["POST", "GET"])
 def login():
@@ -77,10 +78,9 @@ def login():
         
         login_user(User(id=row["id"], username=row["username"]), remember=True)
         
-        return redirect("/")
+        return redirect(url_for("index"))
         
     else:
-        print(generate_password_hash("admin"))
         return render_template("login.html", validity=None)
 
 @app.route("/register", methods=["POST", "GET"])
@@ -111,7 +111,7 @@ def register():
         conn.close()
         
         flash("Registered successfully! You can now log in.")
-        return redirect("/login")
+        return redirect(url_for("login"))
     else:
         return render_template("register.html")
 

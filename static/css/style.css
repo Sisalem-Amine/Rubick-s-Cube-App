@@ -49,6 +49,17 @@ body{
 .nav-item > div{
     color: var(--text-light);
 }
+#logout-form > button{
+    background:none; 
+    border:none; 
+    box-shadow:none;
+    color: var(--text-light);
+    transition: color 0.3s ease;
+}
+#logout-form > button:hover{
+    color: var(--accent);
+    cursor: pointer;
+}
 
 /*Form*/
 #form:not("#form-feedback"){
