@@ -48,7 +48,7 @@ def timer():
 def solver():
     return "SOLVER"
 
-@app.route("/logout", methods=["POST", "GET"])
+@app.route("/logout", methods=["POST"])
 @login_required
 def logout():
     logout_user()
