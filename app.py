@@ -41,12 +41,12 @@ def index():
 @app.route("/timer")
 @login_required
 def timer():
-    return "TIMER"
+    return render_template("timer.html")
 
 @app.route("/solver")
 @login_required
 def solver():
-    return "SOLVER"
+    return render_template("solver.html")
 
 @app.route("/logout", methods=["POST"])
 @login_required

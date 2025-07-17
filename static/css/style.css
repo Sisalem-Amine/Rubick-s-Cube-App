@@ -1,6 +1,7 @@
 :root {
   --primary: #4682A9;
   --secondary: #91C8E4;
+  --highlight : #7FB5D6;
   --accent: #F6B17A;
   --bg-light: #F2F2F2;
   --bg-dark: #2D2D2D;
@@ -98,4 +99,55 @@ body{
 }
 #form-feedback{
     display: none;
+}
+
+/*Scrambler*/
+#scrambler{
+    background-color: var(--highlight);
+    color: var(--text-light);
+}
+.select-custom {
+    background-color: var(--secondary);
+    color: var(--text-light);
+    border: none;
+    text-align-last: center;
+
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+
+    padding: 0.5rem 2.5rem 0.5rem 1rem;
+    border-radius: 0.5rem;
+    font-weight: 500;
+    font-size: 1rem;
+
+    background-image: url("data:image/svg+xml;utf8,<svg fill='%23FFFFFF' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 1rem;
+
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.select-custom:focus {
+    outline: none;
+    border-color: var(--primary);
+    background-color: var(--secondary);
+}
+.select-custom:hover {
+    cursor: pointer;
+}
+#scramble{
+    font-size: 2.5rem;
+    word-spacing: 0.3rem;
+}
+#change-btn{
+    background-color: var(--primary);
+    color: var(--text-light);
+    border: 2px solid transparent;
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+#change-btn:hover{
+    color: var(--accent);
+    border-color: var(--accent);
 }
