@@ -138,8 +138,13 @@ body{
     cursor: pointer;
 }
 #scramble{
-    font-size: 2.5rem;
+    font-size: 1.8rem;
     word-spacing: 0.3rem;
+}
+@media (min-width: 768px) {
+    #scramble{
+        font-size: 2.5rem;
+    }
 }
 #change-btn{
     background-color: var(--primary);
