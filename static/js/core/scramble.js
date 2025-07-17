@@ -9,7 +9,7 @@ fetch('/static/json/pll.json')
   .then(res => res.json())
   .then(data => pll = data);
 
-export function scramble(length, type)
+function scramble(length, type)
 {
     let axies = ['x','y','z'];
     let moves = ['R','L','U','D','F','B'];

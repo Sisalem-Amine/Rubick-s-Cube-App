@@ -1,9 +1,8 @@
-import { feedbackMessage } from "../core/formValidation.js";
-import { scramble } from "../core/scramble.js";
-import { updateUI} from "../core/scramble.js"
+import { feedbackMessage } from '../core/formValidation.js';
+import { updateUI} from '../core/scramble.js';
 
 const form = document.getElementById('form-to-submit');
-
+const scrambler = document.getElementById('scrambler')
 let scrambleType = 'non-standard';
 
 if(form){
@@ -21,9 +20,9 @@ if(form){
         for (let i = 0; i < inputs.length; i++) {
             const input = inputs[i];
             if (!input.checkValidity()){
-                const username = document.getElementById("username").value.trim();
-                const password = document.getElementById("password").value;
-                const confirmPasswordInput = document.getElementById("confirm-password");
+                const username = document.getElementById('username').value.trim();
+                const password = document.getElementById('password').value;
+                const confirmPasswordInput = document.getElementById('confirm-password');
                 const confirmPassword = confirmPasswordInput ? confirmPasswordInput.value : null;
 
                 form.classList.add('was-validated');
@@ -37,11 +36,13 @@ if(form){
     });
 }
 
-document.getElementById('type').addEventListener("change", function (){
-    scrambleType = this.value;
-    updateUI(scrambleType, 'scramble');
-});
+if(scrambler){
+    document.getElementById('type').addEventListener('change', function (){
+        scrambleType = this.value;
+        updateUI(scrambleType, 'scramble');
+    });
 
-document.getElementById('change-btn').addEventListener('click', () => {
-    updateUI(scrambleType, 'scramble');
-});
+    document.getElementById('change-btn').addEventListener('click', () => {
+        updateUI(scrambleType, 'scramble');
+    });
+}
