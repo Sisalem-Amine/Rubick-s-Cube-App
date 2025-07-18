@@ -156,3 +156,18 @@ body{
     color: var(--accent);
     border-color: var(--accent);
 }
+
+/*Timer*/
+#time{
+    font-size: 7.5rem;
+    color: var(--text-light);
+    letter-spacing: 0.5rem;
+}
+@media (min-width: 768px) {
+    #time{
+        font-size: 10rem;
+    }
+}
+#stats{
+    color: var(--primary);
+}

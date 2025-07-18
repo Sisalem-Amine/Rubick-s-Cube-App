@@ -1,9 +1,20 @@
 import { feedbackMessage } from '../core/formValidation.js';
 import { updateUI} from '../core/scramble.js';
+import { setUpTimer } from '../core/timer.js';
+import { runTimer } from '../core/timer.js';
+import { stopTimer } from '../core/timer.js';
 
 const form = document.getElementById('form-to-submit');
-const scrambler = document.getElementById('scrambler')
+const nav = document.getElementById('navbar');
+const scrambler = document.getElementById('scrambler');
+const timer = document.getElementById('timer');
+const stats = document.getElementById('stats')
+let time = document.getElementById('time');
+
 let scrambleType = 'non-standard';
+let myTimeOut;
+let isSpaceDown = false;
+let isTimeRunning = false;
 
 if(form){
     form.addEventListener('submit', (e) => {
@@ -44,5 +55,39 @@ if(scrambler){
 
     document.getElementById('change-btn').addEventListener('click', () => {
         updateUI(scrambleType, 'scramble');
+    });
+}
+
+if(timer){
+    document.addEventListener('keydown', (e) => {
+        e.preventDefault();
+        if(e.code === 'Space'){
+            if(!isSpaceDown && !isTimeRunning){
+                isSpaceDown = true;
+                myTimeOut = setTimeout(() => {
+                    setUpTimer(time, [nav, scrambler, stats]);
+                    isTimeRunning = true;
+                }, 800);
+            }
+            else if(isTimeRunning && !isSpaceDown)
+            {
+                stopTimer([nav, scrambler, stats]);
+                isSpaceDown = false;
+                isTimeRunning = false;
+            }
+        }
+    });
+
+    document.addEventListener('keyup', (e) => {
+        e.preventDefault();
+        if(e.code === 'Space'){
+            if(isTimeRunning){
+                runTimer(time);
+            }
+            else{
+                clearTimeout(myTimeOut);
+            }
+            isSpaceDown = false;
+        }
     });
 }

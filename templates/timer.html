@@ -5,9 +5,9 @@
 {% endblock %}
 
 {% block body %}
-    <main>
-        <section id="scrambler" class="container-fluid p-4 rounded-bottom-4">
-            <div class="row mb-4">
+    <main class="flex-grow-1 d-flex flex-column">
+        <section id="scrambler" class="container-fluid py-3 rounded-bottom-4">
+            <div class="row mb-2">
                 <div class="col">
                     <form id="scramble-type" class="form d-flex flex-row justify-content-center align-items-center gap-4">
                         <label for="type" class="form-label fs-5 fw-bold">Scramble Type</label>
@@ -30,8 +30,26 @@
                 </div>
             </div>
         </section>
-        <section id="timer">
-
+        <section class="flex-grow-1 d-flex flex-column justify-content-center" id="timer">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col m-5 mt-2 d-flex justify-content-center align-items-center">
+                        <p id="time" class="text-center">00:00</p>
+                    </div>
+                </div>
+                <div id="stats" class="row">
+                    <div class="col d-flex justify-content-center align-items-end">
+                        <div class="best-time d-flex justify-content-center align-items-center">
+                            <p class="fs-3 fw-semibold">Best Time : <span id="best-time" class="fw-normal">00:00</span></p>
+                        </div>
+                    </div>
+                    <div class="col d-flex justify-content-center align-items-end">
+                         <div class="solves-num d-flex justify-content-center align-items-center">
+                            <p class="fs-3 fw-semibold">Number of solves : <span id="solves-num" class="fw-normal">0</span></p>
+                         </div>
+                    </div>
+                </div>
+            </div>
         </section>
     </main>
 {% endblock %}

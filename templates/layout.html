@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <title>{% block title %}Rubick's Cube App{% endblock %}</title>
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100">
     {% if request.endpoint == 'login' or request.endpoint == 'register' %}
         <nav class="navbar">
             <div class="container-fluid px-5 py-2 d-flex align-items-center">
@@ -24,7 +24,7 @@
             </div>
         </nav>
     {% else %}
-        <nav class="navbar navbar-expand-md">
+        <nav id="navbar" class="navbar navbar-expand-md">
             <div class="container-fluid px-5 py-2 d-flex align-items-center">
                 <a href="{{ url_for('index') }}" class="navbar-brand fs-1 fw-bold">Rubick's Cube App</a>
                 <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-content"
