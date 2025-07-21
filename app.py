@@ -37,7 +37,19 @@ def load_user(user_id):
 @app.route("/")
 @login_required
 def index():
-    return render_template("index.html")
+    conn = sqlite3.connect("users.db")
+    conn.row_factory = sqlite3.Row
+    cur = conn.cursor()
+    cur.execute("""
+        SELECT scramble_type, scramble, time, timestamp
+        FROM solves
+        WHERE user_id = ?
+        ORDER BY timestamp DESC
+    """, (current_user.id,))
+    solves = cur.fetchall()
+    conn.close()
+
+    return render_template("index.html", solves=solves)
 
 @app.route("/timer" ,methods=["GET", "POST"])
 @login_required

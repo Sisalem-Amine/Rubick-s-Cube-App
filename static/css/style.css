@@ -171,3 +171,21 @@ body{
 #stats{
     color: var(--primary);
 }
+
+/*History*/
+#history{
+    height: 70dvh;
+    color: var(--text-light);
+}
+#history > div{
+    max-width: 1200px;
+}
+thead.head th {
+    background-color: var(--primary) !important;
+    color: var(--text-light) !important;
+}
+
+tbody.body td {
+    background-color: var(--highlight) !important;
+    color: var(--text-dark) !important;
+}
