@@ -12,7 +12,7 @@
                     <form id="scramble-type" class="form d-flex flex-row justify-content-center align-items-center gap-4">
                         <label for="type" class="form-label fs-5 fw-bold">Scramble Type</label>
                         <select class="form-select select-custom w-auto" id="type" name="type">
-                            <option disabled selected class="d-none">Select scramble type</option>
+                            <option disabled selected class="d-none" value="none">Select scramble type</option>
                             <option value="3x3">3x3</option>
                             <option value="2x2">2x2</option>
                             <option value="oll">OLL</option>
@@ -30,14 +30,19 @@
                 </div>
             </div>
         </section>
-        <section class="flex-grow-1 d-flex flex-column justify-content-center" id="timer">
+        <section class="flex-grow-1 d-flex flex-column align-items-center" id="timer">
             <div class="container-fluid">
+                <div id="feedback" class="row mt-4 d-none">
+                    <div class="col d-flex justify-content-center align-items-center">
+                        <p class="w-auto text-center alert alert-danger">Please select a valid type</p>
+                    </div>    
+                </div>
                 <div class="row">
-                    <div class="col m-5 mt-2 d-flex justify-content-center align-items-center">
+                    <div class="col d-flex justify-content-center align-items-center">
                         <p id="time" class="text-center">00:00</p>
                     </div>
                 </div>
-                <div id="stats" class="row">
+                <div id="stats" class="row mt-3">
                     <div class="col d-flex justify-content-center align-items-end">
                         <div class="best-time d-flex justify-content-center align-items-center">
                             <p class="fs-3 fw-semibold">Best Time : <span id="best-time" class="fw-normal">00:00</span></p>

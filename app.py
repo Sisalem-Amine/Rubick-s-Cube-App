@@ -1,9 +1,10 @@
 import sqlite3
 
-from flask import Flask, render_template, redirect, url_for, request, session, flash
+from flask import Flask, render_template, redirect, url_for, request, session, flash, jsonify
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
 from helpers import checkValidity
+from datetime import datetime
 
 app = Flask(__name__)
 app.secret_key = 'secret_key'
@@ -38,10 +39,62 @@ def load_user(user_id):
 def index():
     return render_template("index.html")
 
-@app.route("/timer")
+@app.route("/timer" ,methods=["GET", "POST"])
 @login_required
 def timer():
-    return render_template("timer.html")
+    if request.method == "POST":
+        data = request.get_json()
+        
+        if data:
+            user_id = current_user.id
+            scramble = data.get("scramble")
+            scramble_type = data.get("scrambleType")
+            time = data.get("time")
+            time_ms = data.get("timeMs")
+            timeStamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+            conn = sqlite3.connect("users.db")
+            conn.row_factory = sqlite3.Row
+            cur = conn.cursor()
+            cur.execute("INSERT INTO solves (user_id, scramble, scramble_type, time, time_ms, timestamp) VALUES (?, ?, ?, ?, ?, ?)", (user_id, scramble, scramble_type, time, time_ms, timeStamp))
+            conn.commit()
+            conn.close()
+
+        return jsonify({
+            "message": "Solve saved",
+            "timestamp": timeStamp
+        })
+    else:
+        return render_template("timer.html")
+
+@app.route("/timer/stats")
+@login_required
+def stats():
+    scramble_type = request.args.get("type")
+
+    conn = sqlite3.connect("users.db")
+    cur = conn.cursor()
+
+    if scramble_type and scramble_type != "none":
+        cur.execute("""
+            SELECT COUNT(*), MIN(time_ms)
+            FROM solves
+            WHERE user_id = ? AND scramble_type = ?
+        """, (current_user.id, scramble_type))
+    else:
+        cur.execute("""
+            SELECT COUNT(*), MIN(time_ms)
+            FROM solves
+            WHERE user_id = ?
+        """, (current_user.id,))
+
+    result = cur.fetchone()
+    conn.close()
+
+    return jsonify({
+        "bestTime": result[1] if result[1] is not None else 0,
+        "solvesNum": result[0]
+    })
 
 @app.route("/solver")
 @login_required

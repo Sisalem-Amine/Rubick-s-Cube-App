@@ -75,5 +75,5 @@ export function updateUI(type, target)
     }
 
     let scrambleString = scramble(lenght, mode);
-    document.getElementById(target).textContent = scrambleString;
+    target.textContent = scrambleString;
 }
