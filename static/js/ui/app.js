@@ -6,6 +6,7 @@ import { stopTimer } from '../core/timer.js';
 import { submitToServer } from '../core/timer.js';
 import { fetchStats } from '../core/timer.js';
 import { fetchSortSettings } from '../core/history.js';
+import { renderCubeGrid } from '../core/solver.js';
 
 const form = document.getElementById('form-to-submit');
 const nav = document.getElementById('navbar');
@@ -23,6 +24,8 @@ const select = document.getElementById('select-by');
 const sortRadios = document.getElementsByName('sort-by');
 const sortRadiosOrder = document.getElementsByName('sort-order');
 const tBody = document.getElementById('tbody');
+const solver = document.getElementById('solver');
+const solverGrid = document.getElementById('cube-grid');
 
 let scrambleType = 'none';
 let myTimeOut;
@@ -136,4 +139,10 @@ if(history){
             }, 0);
         })
     );
+}
+
+if(solver){
+    document.addEventListener('DOMContentLoaded', () => {
+        renderCubeGrid(solverGrid);
+    });
 }

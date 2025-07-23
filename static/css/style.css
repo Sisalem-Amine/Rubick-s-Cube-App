@@ -214,15 +214,52 @@ tbody.body td {
     background-color: transparent;
     transition: all 0.2s ease;
 }
-
 label.btn.btn-outline-custom:hover, label.btn.btn-outline-custom:focus {
     background-color: var(--highlight);
     color: var(--text-light);
     border-color: var(--highlight);
 }
-
 .btn-check:checked + .btn-outline-custom {
     background-color: var(--primary);
     color: var(--text-light);
     border-color: var(--primary);
 }
+
+/*Solver*/
+.face {
+  display: grid;
+  grid-template-columns: repeat(3, 50px);
+  grid-template-rows: repeat(3, 50px);
+  gap: 2px;
+  margin: 4px;
+}
+.sticker {
+  width: 50px;
+  height: 50px;
+  background-color: white;
+  border-radius: 6px;
+  border: 2px solid rgba(0, 0, 0, 0.3);
+  transition: background-color 0.2s;
+}
+.sticker:hover {
+  opacity: 0.8;
+  cursor: pointer;
+}
+.center-sticker {
+    background-color: white;
+    cursor: not-allowed;
+}
+.center-sticker:hover {
+    opacity: 1;
+    cursor: not-allowed;
+}
+#cube-grid{
+    color: var(--text-light);
+    background-color: rgba(255, 255, 255, 0.2);
+}
+.white{ background-color: white; }
+.blue{ background-color: blue; }
+.red{ background-color: red; }
+.green{ background-color: green; }
+.orange{ background-color: orange; }
+.yellow{ background-color: #FFD700; }
