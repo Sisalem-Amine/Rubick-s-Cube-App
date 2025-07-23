@@ -5,30 +5,88 @@
 {% endblock %}
 
 {% block body %}
-    <main id="history" class="container my-5 d-flex justify-content-center">
-        <div class="w-100">
-            <div class="table-responsive shadow rounded-4 overflow-hidden">
-                <table class="table table-hover table-borderless align-middle mb-0">
-                    <thead class="head text-center text-nowrap">
-                        <tr>
-                            <th scope="col">Type</th>
-                            <th scope="col">Scramble</th>
-                            <th scope="col">Time</th>
-                            <th scope="col">Timestamp</th>
-                        </tr>
-                    </thead>
-                    <tbody class="body text-center">
-                        {% for solve in solves %}
-                        <tr>
-                            <td class="fw-semibold">{{ solve.scramble_type }}</td>
-                            <td class="text-start text-break">{{ solve.scramble }}</td>
-                            <td class="text-nowrap">{{ solve.time }}</td>
-                            <td class="text-nowrap">{{ solve.timestamp }}</td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
+<main id="history" class="container mt-5 flex-grow-1 d-flex flex-column align-items-center">
+
+    <!-- Section Title -->
+    <h2 class="fw-bold text-center mb-4">Filter & Sort Your Solves</h2>
+
+    <!-- Sort & Filter Form -->
+    <form id="sort-form" method="post" action="/" class="form mb-4 w-100 px-4 py-3 rounded-4 shadow-sm">
+        <div class="row text-center gy-4">
+
+            <!-- Sort By -->
+            <div class="col-md-4 d-flex flex-column align-items-center">
+                <h5 class="fw-bold mb-2">Sort by</h5>
+                <div class="btn-group" role="group" aria-label="Sort By">
+                    <input type="radio" class="btn-check" name="sort-by" id="sort-by-time_ms" autocomplete="off">
+                    <label class="btn btn-outline-custom" for="sort-by-time_ms">Time</label>
+
+                    <input type="radio" class="btn-check" name="sort-by" id="sort-by-timestamp" autocomplete="off">
+                    <label class="btn btn-outline-custom" for="sort-by-timestamp">Timestamp</label>
+                </div>
+            </div>
+
+            <!-- Sort Order -->
+            <div class="col-md-4 d-flex flex-column align-items-center">
+                <h5 class="fw-bold mb-2">Sort Order</h5>
+                <div class="btn-group" role="group" aria-label="Sort Order">
+                    <input type="radio" class="btn-check" name="sort-order" id="sort-order-asc" autocomplete="off">
+                    <label class="btn btn-outline-custom" for="sort-order-asc">Ascending</label>
+
+                    <input type="radio" class="btn-check" name="sort-order" id="sort-order-desc" autocomplete="off">
+                    <label class="btn btn-outline-custom" for="sort-order-desc">Descending</label>
+                </div>
+            </div>
+
+            <!-- Select Type -->
+            <div class="col-md-4 d-flex flex-column align-items-center">
+                <label for="select-by" class="fw-bold mb-2">Select Scramble Type</label>
+                <select id="select-by" class="form-select text-center select-custom" name="select-by">
+                    <option disabled selected class="d-none" value="none">Choose type</option>
+                    <option value="3x3">3x3</option>
+                    <option value="2x2">2x2</option>
+                    <option value="oll">OLL</option>
+                    <option value="pll">PLL</option>
+                </select>
+            </div>
+
+        </div>
+
+        <!-- Reset Button -->
+        <div class="row mt-4">
+            <div class="col d-flex justify-content-center">
+                <button id="reset-btn" type="reset" class="btn px-4 rounded-4">
+                    <span class="bi bi-arrow-repeat me-2"></span>Reset Filters
+                </button>
             </div>
         </div>
-    </main>
+    </form>
+
+    <!-- Table -->
+    <div class="w-100">
+        <div class="table-responsive shadow rounded-4">
+            <table class="table table-hover table-borderless align-middle mb-0">
+                <thead class="head text-center text-nowrap">
+                    <tr>
+                        <th scope="col">Type</th>
+                        <th scope="col">Scramble</th>
+                        <th scope="col">Time</th>
+                        <th scope="col">Timestamp</th>
+                    </tr>
+                </thead>
+                <tbody id="tbody" class="body text-center">
+                    {% for solve in solves %}
+                    <tr>
+                        <td class="fw-semibold">{{ solve.scramble_type }}</td>
+                        <td class="text-start text-break">{{ solve.scramble }}</td>
+                        <td class="text-nowrap">{{ solve.time }}</td>
+                        <td class="text-nowrap">{{ solve.timestamp }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</main>
 {% endblock %}

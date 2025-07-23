@@ -3,7 +3,7 @@ import sqlite3
 from flask import Flask, render_template, redirect, url_for, request, session, flash, jsonify
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
-from helpers import checkValidity
+from helpers import checkValidity, queryGenerator
 from datetime import datetime
 
 app = Flask(__name__)
@@ -34,22 +34,43 @@ def load_user(user_id):
         return User(id=row["id"], username=row["username"])
     return None
 
-@app.route("/")
+@app.route("/", methods=["GET", "POST"])
 @login_required
 def index():
-    conn = sqlite3.connect("users.db")
-    conn.row_factory = sqlite3.Row
-    cur = conn.cursor()
-    cur.execute("""
-        SELECT scramble_type, scramble, time, timestamp
-        FROM solves
-        WHERE user_id = ?
-        ORDER BY timestamp DESC
-    """, (current_user.id,))
-    solves = cur.fetchall()
-    conn.close()
+    if request.method == "POST":
+        sortData = request.get_json()
 
-    return render_template("index.html", solves=solves)
+        select = sortData.get("select")
+        sort = sortData.get("sort")
+        order = sortData.get("order")
+
+        query = queryGenerator(select, sort, order)
+
+        conn = sqlite3.connect("users.db")
+        conn.row_factory = sqlite3.Row
+        cur = conn.cursor()
+        cur.execute(query, (current_user.id,))
+        selected_solves = cur.fetchall()
+        conn.close()
+
+        return jsonify({
+            "data": [dict(row) for row in selected_solves]
+        })
+    
+    else:
+        conn = sqlite3.connect("users.db")
+        conn.row_factory = sqlite3.Row
+        cur = conn.cursor()
+        cur.execute("""
+            SELECT scramble_type, scramble, time, timestamp
+            FROM solves
+            WHERE user_id = ?
+            ORDER BY timestamp
+        """, (current_user.id,))
+        solves = cur.fetchall()
+        conn.close()
+
+        return render_template("index.html", solves=solves)
 
 @app.route("/timer" ,methods=["GET", "POST"])
 @login_required

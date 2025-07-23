@@ -17,3 +17,21 @@ def checkValidity(username, password, confirm_password, endpoint, user):
             return "Username already exists"
 
     return None
+
+
+def queryGenerator(select, sort, order):
+    query = "SELECT scramble_type, scramble, time, timestamp FROM solves WHERE user_id = ?"
+
+    selectOptions = ["3x3", "2x2", "pll", "oll"]
+
+    if select in selectOptions:
+        query += f" AND scramble_type = '{select}'"
+
+    sortOptions = ["time_ms", "timestamp"]
+    orderOptions = ["ASC", "DESC"]
+
+    if sort in sortOptions and order in orderOptions:
+        query += f" ORDER BY {sort} {order}"
+
+    return query  
+    

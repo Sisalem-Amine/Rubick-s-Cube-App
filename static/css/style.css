@@ -189,3 +189,40 @@ tbody.body td {
     background-color: var(--highlight) !important;
     color: var(--text-dark) !important;
 }
+#select-by{
+    background-color: var(--highlight);
+}
+#reset-btn{
+    background-color: var(--primary);
+    color: var(--text-light);
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+#reset-btn:hover{
+    color: var(--accent);
+    border-color: var(--accent);
+}
+#sort-form{
+    max-width: 900px;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+.btn-check{
+    border-color: var(--primary);
+}
+.btn-outline-custom {
+    color: var(--primary);
+    border-color: var(--primary);
+    background-color: transparent;
+    transition: all 0.2s ease;
+}
+
+label.btn.btn-outline-custom:hover, label.btn.btn-outline-custom:focus {
+    background-color: var(--highlight);
+    color: var(--text-light);
+    border-color: var(--highlight);
+}
+
+.btn-check:checked + .btn-outline-custom {
+    background-color: var(--primary);
+    color: var(--text-light);
+    border-color: var(--primary);
+}

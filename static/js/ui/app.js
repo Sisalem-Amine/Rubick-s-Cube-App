@@ -5,6 +5,7 @@ import { runTimer } from '../core/timer.js';
 import { stopTimer } from '../core/timer.js';
 import { submitToServer } from '../core/timer.js';
 import { fetchStats } from '../core/timer.js';
+import { fetchSortSettings } from '../core/history.js';
 
 const form = document.getElementById('form-to-submit');
 const nav = document.getElementById('navbar');
@@ -16,6 +17,12 @@ const stats = document.getElementById('stats');
 const bestTime = document.getElementById('best-time');
 const solvesNum = document.getElementById('solves-num');
 const time = document.getElementById('time');
+const history = document.getElementById('history');
+const sortForm = document.getElementById('sort-form');
+const select = document.getElementById('select-by');
+const sortRadios = document.getElementsByName('sort-by');
+const sortRadiosOrder = document.getElementsByName('sort-order');
+const tBody = document.getElementById('tbody');
 
 let scrambleType = 'none';
 let myTimeOut;
@@ -115,3 +122,18 @@ if (timer) {
     });
 }
 
+if(history){
+    ['change', 'reset'].forEach(event =>
+        sortForm.addEventListener(event, () => {
+            setTimeout(() => {
+                const sort = Array.from(sortRadios).find(r => r.checked)?.id || "sort-by-timestamp";
+                const sortValue = sort === "sort-by-time_ms" ? "time_ms" : "timestamp";
+
+                const order = Array.from(sortRadiosOrder).find(r => r.checked)?.id || "sort-order-asc";
+                const orderValue = order === "sort-order-desc" ? "DESC" : "ASC";
+
+                fetchSortSettings(tBody, select, sortValue, orderValue);
+            }, 0);
+        })
+    );
+}
