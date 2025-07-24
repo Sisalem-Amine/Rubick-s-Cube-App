@@ -7,6 +7,7 @@ import { submitToServer } from '../core/timer.js';
 import { fetchStats } from '../core/timer.js';
 import { fetchSortSettings } from '../core/history.js';
 import { renderCubeGrid } from '../core/solver.js';
+import { attachStickerEvents } from '../core/solver.js';
 
 const form = document.getElementById('form-to-submit');
 const nav = document.getElementById('navbar');
@@ -141,8 +142,26 @@ if(history){
     );
 }
 
-if(solver){
+if (solver) {
     document.addEventListener('DOMContentLoaded', () => {
-        renderCubeGrid(solverGrid);
+        function initializeGrid() {
+            renderCubeGrid(solverGrid);
+
+            const stickers = document.getElementsByClassName('sticker');
+            attachStickerEvents(stickers);
+
+            const resetBtn = document.getElementById('reset-btn');
+            resetBtn.addEventListener('click', () => {
+                initializeGrid();
+            });
+
+            const solveBtn = document.getElementById('solve-btn');
+            
+            solveBtn.addEventListener('click', () => {
+                console.log("solve")
+            });
+        }
+
+        initializeGrid();
     });
 }
