@@ -2,9 +2,10 @@ export function renderCubeGrid(solverGrid) {
     let grid = ``;
 
     // === Row 1: Up face aligned over Front ===
-    grid += `<div class="row gx-0 offset-3">`;
+    grid += `<div>`;
+    grid += `<div class="gx-0 offset-3">`;
     grid += `
-        <div class="col-auto">
+        <div>
             <div id="face-1" class="face">
     `;
     for (let k = 0; k < 9; k++) {
@@ -25,7 +26,7 @@ export function renderCubeGrid(solverGrid) {
     grid += `</div>`;
 
     // === Row 2: Left, Front, Right, Back ===
-    grid += `<div class="row gx-0 justify-content-center">`;
+    grid += `<div class="gx-0 d-flex justify-content-center">`;
 
     const faceRow2 = [
         { id: '2', color: 'orange' },
@@ -36,7 +37,7 @@ export function renderCubeGrid(solverGrid) {
 
     for (const face of faceRow2) {
         grid += `
-            <div class="col-auto">
+            <div>
                 <div id="face-${face.id}" class="face">
         `;
         for (let k = 0; k < 9; k++) {
@@ -59,9 +60,9 @@ export function renderCubeGrid(solverGrid) {
     grid += `</div>`;
 
     // === Row 3: Down face aligned under Front ===
-    grid += `<div class="row gx-0 offset-3">`;
+    grid += `<div class="gx-0 offset-3">`;
     grid += `
-        <div class="col-auto">
+        <div>
             <div id="face-6" class="face">
     `;
     for (let k = 0; k < 9; k++) {
@@ -79,6 +80,7 @@ export function renderCubeGrid(solverGrid) {
             </div>
         </div>
     `;
+    grid += `</div>`;
     grid += `</div>`;
 
     // === Buttons row ===
