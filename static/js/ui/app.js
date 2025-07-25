@@ -165,6 +165,7 @@ if (solver) {
             const solveBtn = document.getElementById('solve-btn');
             
             solveBtn.addEventListener('click', () => {
+                solution.textContent = '-';
                 const scramble = getCubeState();
                 getSolution(scramble, solution);
             });

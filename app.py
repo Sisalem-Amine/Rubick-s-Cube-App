@@ -140,10 +140,14 @@ def solver():
 
         if data:
             scramble = data.get("scramble")
-            try:
-                solution = kociemba.solve(scramble)
-            except Exception as e:
-                error = str(e)
+            print(scramble)
+            if scramble == 'UUUUUUUUURRRRRRRRRFFFFFFFFFDDDDDDDDDLLLLLLLLLBBBBBBBBB':
+                solution = "Cube Already Solved"
+            else:
+                try:
+                    solution = kociemba.solve(scramble)
+                except Exception as e:
+                    error = str(e)
 
         return jsonify({
             "solution": solution,

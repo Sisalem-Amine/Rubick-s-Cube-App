@@ -276,3 +276,7 @@ label.btn.btn-outline-custom:hover, label.btn.btn-outline-custom:focus {
     background-color: rgba(255, 255, 255, 0.2);
     color: var(--text-light);
 }
+#instructions{
+    background-color: rgba(255, 255, 255, 0.15);
+    color: var(--text-light);
+}
