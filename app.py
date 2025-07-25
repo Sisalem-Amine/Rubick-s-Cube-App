@@ -8,7 +8,7 @@ from helpers import checkValidity, queryGenerator
 from datetime import datetime
 
 app = Flask(__name__)
-app.secret_key = 'secret_key'
+app.secret_key = 'S0m3$uP3rR@nd0mK3y!'
 
 login_manager = LoginManager()
 login_manager.login_view = "login"
