@@ -8,6 +8,9 @@ import { fetchStats } from '../core/timer.js';
 import { fetchSortSettings } from '../core/history.js';
 import { renderCubeGrid } from '../core/solver.js';
 import { attachStickerEvents } from '../core/solver.js';
+import { getCubeState } from '../core/solver.js';
+import { getSolution } from '../core/solver.js';
+import { hideError } from '../core/solver.js';
 
 const form = document.getElementById('form-to-submit');
 const nav = document.getElementById('navbar');
@@ -27,6 +30,8 @@ const sortRadiosOrder = document.getElementsByName('sort-order');
 const tBody = document.getElementById('tbody');
 const solver = document.getElementById('solver');
 const solverGrid = document.getElementById('cube-grid');
+const solution = document.getElementById('solution');
+const error = document.getElementById('solution-error');
 
 let scrambleType = 'none';
 let myTimeOut;
@@ -153,15 +158,17 @@ if (solver) {
             const resetBtn = document.getElementById('reset-btn');
             resetBtn.addEventListener('click', () => {
                 initializeGrid();
+                hideError();
+                solution.textContent = '-';
             });
 
             const solveBtn = document.getElementById('solve-btn');
             
             solveBtn.addEventListener('click', () => {
-                console.log("solve")
+                const scramble = getCubeState();
+                getSolution(scramble, solution);
             });
         }
-
         initializeGrid();
     });
 }

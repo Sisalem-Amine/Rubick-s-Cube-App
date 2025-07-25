@@ -1,41 +1,87 @@
 export function renderCubeGrid(solverGrid) {
     let grid = ``;
-    let colors = [['white'],['blue','red','green','orange'],['yellow']];
 
-    for (let i = 0; i < 3; i++) {
-        grid += `<div class="row gx-0 justify-content-center">`;
+    // === Row 1: Up face aligned over Front ===
+    grid += `<div class="row gx-0 offset-3">`;
+    grid += `
+        <div class="col-auto">
+            <div id="face-1" class="face">
+    `;
+    for (let k = 0; k < 9; k++) {
+        const isCenter = (k === 4);
+        let centerClass = isCenter ? ' center-sticker' : '';
+        let disabledAttr = isCenter ? 'disabled' : '';
+        grid += `
+            <button type="button"
+                    class="sticker rounded-3 border border-black border-opacity-50 white${centerClass}"
+                    ${disabledAttr}>
+            </button>
+        `;
+    }
+    grid += `
+            </div>
+        </div>
+    `;
+    grid += `</div>`;
 
-        let faces = (i === 1) ? 4 : 1;
+    // === Row 2: Left, Front, Right, Back ===
+    grid += `<div class="row gx-0 justify-content-center">`;
 
-        for (let j = 0; j < faces; j++) {
-            const isOffset = (faces === 1) ? " offset-3" : "";
+    const faceRow2 = [
+        { id: '2', color: 'orange' },
+        { id: '3', color: 'green' },
+        { id: '4', color: 'red' },
+        { id: '5', color: 'blue' }
+    ];
 
+    for (const face of faceRow2) {
+        grid += `
+            <div class="col-auto">
+                <div id="face-${face.id}" class="face">
+        `;
+        for (let k = 0; k < 9; k++) {
+            const isCenter = (k === 4);
+            let centerClass = isCenter ? ' center-sticker' : '';
+            let disabledAttr = isCenter ? 'disabled' : '';
             grid += `
-                <div class="col-auto${isOffset}">
-                    <div id="face-${i + 1}-${j + 1}" class="face">
-            `;
-
-            for (let k = 0; k < 9; k++) {
-                const isCenter = (k === 4);
-                let centerClass = isCenter ? ' center-sticker' : '';
-                let disabledAttr = isCenter ? 'disabled' : '';
-
-                grid += `
-                    <button type="button"
-                            class="sticker rounded-3 border border-black border-opacity-50${centerClass} ${colors[i][j]}"
-                            ${disabledAttr}>
-                    </button>
-                `;
-            }
-
-            grid += `
-                    </div>
-                </div>
+                <button type="button"
+                        class="sticker rounded-3 border border-black border-opacity-50 ${face.color}${centerClass}"
+                        ${disabledAttr}>
+                </button>
             `;
         }
-        grid += `</div>`;
+        grid += `
+                </div>
+            </div>
+        `;
     }
 
+    grid += `</div>`;
+
+    // === Row 3: Down face aligned under Front ===
+    grid += `<div class="row gx-0 offset-3">`;
+    grid += `
+        <div class="col-auto">
+            <div id="face-6" class="face">
+    `;
+    for (let k = 0; k < 9; k++) {
+        const isCenter = (k === 4);
+        let centerClass = isCenter ? ' center-sticker' : '';
+        let disabledAttr = isCenter ? 'disabled' : '';
+        grid += `
+            <button type="button"
+                    class="sticker rounded-3 border border-black border-opacity-50 yellow${centerClass}"
+                    ${disabledAttr}>
+            </button>
+        `;
+    }
+    grid += `
+            </div>
+        </div>
+    `;
+    grid += `</div>`;
+
+    // === Buttons row ===
     grid += `
         <div class="row mt-4 d-flex justify-content-evenly align-items-center">
             <div class="col-auto">
@@ -66,4 +112,81 @@ function colorChanger(sticker){
 
     sticker.classList.remove(colors[colorIndex]);
     sticker.classList.add(colors[(colorIndex + 1) % colors.length]);
+}
+
+export function getCubeState(){
+    const faceOrder = ['face-1', 'face-4', 'face-3', 'face-6', 'face-2', 'face-5'];
+    const colors = ['white', 'orange', 'green', 'red', 'blue', 'yellow'];
+    let scramble = []
+
+    faceOrder.forEach(faceId => {
+        const face = document.getElementById(faceId);
+        const stickers = face.getElementsByClassName('sticker');
+
+        Array.from(stickers).forEach(sticker => {
+            sticker.classList.forEach(cls => {
+                if (colors.includes(cls)) {
+                    scramble.push(cls);
+                }
+            });
+        });
+    });
+
+    const colorToFace = {
+        white: 'U',
+        red: 'R',
+        blue: 'B',
+        orange: 'L',
+        green: 'F',
+        yellow: 'D'
+    };
+
+    scramble = scramble.map(color => colorToFace[color]).join('');
+
+    return scramble;
+}
+
+export function getSolution(scramble, solutionEl){
+    const data = {
+        scramble: scramble
+    };
+
+    fetch("/solver", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    })
+    .then(res => {
+        if (!res.ok) {
+            throw new Error(`Server responded with status ${res.status}`);
+        }
+        return res.json();
+    })
+    .then(response => {
+        hideError();
+        if (response.solution) {
+            console.log("Solution:", data.solution);
+            solutionEl.textContent = response.solution;
+        } else {
+            showError(response.error);
+        }
+    })
+    .catch(error => {
+        console.error('Submission failed:', error);
+        showError("Invalid scramble or server error.");
+    });
+}
+
+function showError(message) {
+    const errorBox = document.getElementById('solution-error');
+    const errorText = document.getElementById('error');
+
+    errorText.textContent = message;
+    errorBox.classList.remove('d-none'); 
+}
+
+export function hideError() {
+    document.getElementById('solution-error').classList.add('d-none');
 }

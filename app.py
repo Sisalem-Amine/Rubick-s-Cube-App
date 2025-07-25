@@ -130,10 +130,27 @@ def stats():
         "solvesNum": result[0]
     })
 
-@app.route("/solver")
+@app.route("/solver", methods=["POST", "GET"])
 @login_required
 def solver():
-    return render_template("solver.html")
+    if request.method == "POST":
+        data = request.get_json()
+        solution = None
+        error = None
+
+        if data:
+            scramble = data.get("scramble")
+            try:
+                solution = kociemba.solve(scramble)
+            except Exception as e:
+                error = str(e)
+
+        return jsonify({
+            "solution": solution,
+            "error": error
+        })
+    else:
+        return render_template("solver.html")
 
 @app.route("/logout", methods=["POST"])
 @login_required
